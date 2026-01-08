@@ -9,15 +9,15 @@ import { success } from "zod";
 export const Categoryfetch = async (param) => {
   try {
     await dbConnect();
+    console.log("param",param);
     const data = await Product.find({ category: param });
     if (!data) {
       console.log("unable to find the product");
     }
-    console.log(data);
-
+    console.log("data", data);
     return data;
   } catch (err) {
-    console.log(err);
+    console.log("err in fetching",err);
   }
 };
 

@@ -1,8 +1,16 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Navbar from "./Navbar";
 import CraftingText from "./CraftingText";
 import Collection from "./Collection";
+import Interior from "./Interior";
+import Priority from "./Priority";
+import Services from "./Services";
+import Testimonial from "./Testimonial";
+import Faq from "./Faq";
+import Footer from "./Footer";
+import AllQueries from "./AllQueries";
+// import Testimonials from "./Testimonials";
 
 const projects = [
   {
@@ -40,6 +48,10 @@ const images = [
 ];
 
 const AllProducts = () => {
+  const ServiceRef = useRef(null);
+  const ProductRef = useRef(null);
+  const collectionRef = useRef(null);
+  const enquiryRef = useRef(null);
   const [showAll, setShowAll] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -63,7 +75,12 @@ const AllProducts = () => {
           {/* Hero Section */}
 
           <div className="relative w-full h-[70vh] overflow-hidden">
-            <Navbar />
+            <Navbar
+            ServiceRef={ServiceRef}
+            collectionRef={collectionRef}
+            ProductRef={ProductRef}
+            enquiryRef={enquiryRef}
+            />
             <img
               src="/high.avif"
               alt="background"
@@ -84,7 +101,7 @@ const AllProducts = () => {
           </div>
 
           {/* Cards Section */}
-          <div className="grid gap-8 sm:grid-cols-1 md:grid-cols-2 mt-20 max-w-7xl mx-auto px-4">
+          <div className="grid gap-8 sm:grid-cols-1 md:grid-cols-2 m-8 mx-auto px-4">
             {visibleProjects.map((project, index) => (
               <div
                 key={index}
@@ -144,7 +161,14 @@ const AllProducts = () => {
             ))}
           </div>
           <CraftingText />
-          <Collection/>
+          <Collection ProductRef={ProductRef} />
+          <Interior />
+          <Priority />
+          <Services ServiceRef={ServiceRef} />
+          <Testimonial/>
+          <Faq enquiryRef={enquiryRef}/>
+          <Footer/>
+
           {/* Show More / Show Less only for mobile */}
           {isMobile && (
             <div className="flex justify-center mt-10">

@@ -246,7 +246,7 @@ function TopProductHeader({ products, bulkAction, selectId,click,setclick }) {
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-background/80 backdrop-blur-sm" onClick={() => setIsModalOpen(false)}></div>
-          <div className="relative bg-card rounded-xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden border border-border">
+          <div className="relative bg-card rounded-xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto border border-border">
             <AddProduct
               isModalOpen={isModalOpen}
               setIsModalOpen={setIsModalOpen}

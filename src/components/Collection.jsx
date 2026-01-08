@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-function Collection() {
+function Collection({ProductRef}) {
   const product = [
     {
       id: 1,
@@ -76,7 +76,7 @@ function Collection() {
     },
   ];
   return (
-    <div className="flex flex-wrap gap-10 justify-center items-start p-10">
+    <div ref={ProductRef} className="flex flex-wrap gap-10 justify-center items-start p-10">
       {product.map((item) => (
         <div key={item.id} className="flex flex-col items-center">
           <Link href={`/category/${item.category}`}>

@@ -12,7 +12,7 @@ export default async function Category({ params, searchParams }) {
   console.log(decode);
 
   const res = await Categoryfetch(decode);
-  console.log("res", JSON.parse(JSON.stringify(res)));
+  console.log("res", res);
 
   // Convert MongoDB documents to plain objects
   const products = res.map((item) => ({
@@ -21,7 +21,7 @@ export default async function Category({ params, searchParams }) {
     category: item.category,
     subCategory: item?.subCategory,
     price: item.price,
-    image: item.image,
+    image: item.image[0],
     createdAt: item.createdAt,
   }));
   console.log("products", products);

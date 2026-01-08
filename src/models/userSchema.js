@@ -5,7 +5,8 @@ const userSchema = new mongoose.Schema(
     username: {
       type: String,
       required: true,
-      unique: true,
+      // Remove unique: true if you want to allow duplicate usernames
+      // unique: true,
     },
     email: {
       type: String,

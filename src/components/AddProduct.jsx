@@ -49,7 +49,7 @@ function AddProduct({ setIsModalOpen }) {
   }, [state.success]);
   console.log(previewImage);
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-lg ">
+    <div className="max-w-4xl mx-auto p-6 bg-white overflow-y-auto text-black rounded-lg shadow-lg ">
       <h1 className="text-2xl font-bold mb-6 text-center">Upload Product</h1>
       <span className="flex justify-end ">
         {" "}

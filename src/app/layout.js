@@ -32,13 +32,10 @@ export default function RootLayout({ children }) {
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground transition-colors duration-300`}
       >
         <Providers>
-          <SidebarProvider>
-            <SessionProvider>
-              <Toaster />
-              <SidebarTrigger />
-              {children}
-            </SessionProvider>
-          </SidebarProvider>
+          <SessionProvider>
+            <Toaster />
+            {children}
+          </SessionProvider>
         </Providers>
       </body>
     </html>

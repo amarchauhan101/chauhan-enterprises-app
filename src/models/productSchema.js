@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
 
+import mongoose from "mongoose";
 
 // Import subCategories directly from data file instead of models
 const getSubCategories = async () => {
@@ -14,9 +14,10 @@ const productSchema = new mongoose.Schema(
       required: true,
     },
     category: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "CategoryModel",
-      required: true,
+      type:String,
+      required:true,
+      unique:true,
+      trim:true
     },
     subCategory: {
       type: String,

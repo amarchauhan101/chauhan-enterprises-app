@@ -34,6 +34,11 @@ const items = [
     icon: Inbox,
   },
   {
+    title:"Queries",
+    url:"/admin/queries",
+    icon: Inbox,
+  },
+  {
     title: "Settings",
     url: "/admin/settings",
     icon: Settings,
