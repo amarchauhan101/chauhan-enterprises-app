@@ -70,11 +70,11 @@ const AllProducts = () => {
 
   return (
     <>
-      <div className="bg-[#eae5df] brico -tracking-wider ">
+      <div className="bg-[#eae5df] brico-tracking-wider ">
         <div className="">
           {/* Hero Section */}
 
-          <div className="relative w-full h-[70vh] overflow-hidden">
+          <div className="relative w-full h-[70vh] overflow-hidden ">
             <Navbar
             ServiceRef={ServiceRef}
             collectionRef={collectionRef}

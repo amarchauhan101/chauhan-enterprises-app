@@ -47,23 +47,24 @@ function Faq({ enquiryRef }) {
     <div className="faq h-fit w-full bg-black text-white">
       <div
         ref={enquiryRef}
-        className="cnt h-full w-full p-20 flex flex-col gap-20"
+        className="cnt h-full w-full lg:p-20 p-8 flex flex-col lg:gap-20 gap-4"
       >
-        <div className="head text-7xl font-semibold">
-          <h1>FAQs</h1>
+        <div className="head lg:text-7xl text-xl font-semibold">
+          <h1>FAQs</h1> 
         </div>
-        <div className="Faq grid grid-cols-1 gap-10">
+        <div className="Faq grid grid-cols-1 lg:gap-10 gap-2">
           {data && data.length > 0 ? (
             data.map((item, index) => (
               <div
                 key={item._id || index}
-                className="block1 border-b-2 border-gray-300"
+                className="block1  border-b-[0.5px] border-gray-300"
               >
                 <div  onClick={(idx) => {
                       handleDown(index);
-                    }} className="flex items-center justify-between cursor-pointer py-4">
-                  <h2 className="text-2xl">{item.query}</h2>
+                    }} className="flex items-center justify-between cursor-pointer py-2">
+                  <h2 className="lg:text-2xl text-md">{item.query}</h2>
                   <ArrowDown
+                  size="16px"
                     className="transition-transform"
                   />
                 </div>
@@ -114,21 +115,22 @@ function Faq({ enquiryRef }) {
         </Button>
       </div>
       {isModalOpen && (
-        <div className="pl-20 pr-20 pt-10 pb-10  bg-gradient-to-r from-black to-white ">
-          <form action={Action} className="flex flex-col gap-10">
-            <Input className="bg-white text-black" type="text" name="query" />
+        <div className="lg:pr-20 lg:pl-20 lg:pb-10 lg:pt-10 p-12 bg-gradient-to-r from-black to-white ">
+          <form action={Action} className="flex flex-col lg:gap-10 gap-4">
+            <Input required className="bg-white text-black" type="text" name="query" />
             <div className="flex gap-4">
+              
               <button
-                className="bg-black w-fit border-white border-2 text-white active:scale-95 px-10 py-2 rounded-md "
+                onClick={() => setIsModalOpen(false)}
+                className="bg-red-700 w-fit border-white  text-white active:scale-95 px-10 py-2 rounded-md "
+              >
+                Cancel
+              </button>
+              <button
+                className="bg-green-500  w-fit border-white  text-white active:scale-95 px-10 py-2 rounded-md "
                 type="submit"
               >
                 Submit
-              </button>
-              <button
-                onClick={() => setIsModalOpen(false)}
-                className="bg-red-700 w-fit border-white border-2 text-white active:scale-95 px-10 py-2 rounded-md "
-              >
-                Cancel
               </button>
             </div>
           </form>

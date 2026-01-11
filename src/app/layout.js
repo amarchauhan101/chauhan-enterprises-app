@@ -1,4 +1,4 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Great_Vibes } from "next/font/google";
 import "./globals.css";
 import { SessionProvider } from "next-auth/react";
 import { Toaster } from "react-hot-toast";
@@ -7,15 +7,20 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import DashBoardSideBar from "@/components/DashBoardSideBar";
 import Providers from "./providers";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+// const geistSans = Geist({
+//   variable: "--font-geist-sans",
+//   subsets: ["latin"],
+// });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+// const geistMono = Geist_Mono({
+//   variable: "--font-geist-mono",
+//   subsets: ["latin"],
+// });
+// const greatVibes = Great_Vibes({
+//   weight: "400",
+//   subsets: ["latin"],
+//   variable: "--font-great-vibes",
+// });
 
 export const metadata = {
   title: "Create Next App",
@@ -27,9 +32,14 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <head>
         <Script src="https://checkout.razorpay.com/v1/checkout.js"></Script>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap"
+          rel="stylesheet"
+        />
       </head>
+
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground transition-colors duration-300`}
+        className="antialiased bg-background text-foreground transition-colors duration-300"
       >
         <Providers>
           <SessionProvider>
