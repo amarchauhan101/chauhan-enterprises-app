@@ -1,18 +1,29 @@
 import { Categoryfetch } from "@/app/action/fetchCategory";
 import FilterForm from "@/components/FilterForm";
 import ProductsGrid from "@/components/ProductsGrid";
-// import { subCategories } from "@/models/subCategories";
+import { subCategories } from "@/data/subCategory";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 // import { auth } from "../../../lib/auth";
+
 export default async function Category({ params, searchParams }) {
   const { slug } = await params;
   const decode = decodeURIComponent(slug);
-  // console.log("decode",decode.toCapitalize());
+  
+  let res = [];
+  try {
+    res = await Categoryfetch(decode);
+    console.log("res in category page ", res);
+  } catch (error) {
+    console.error("Error fetching category data:", error);
+    res = []; // Fallback to empty array
+  }
 
-  const res = await Categoryfetch(decode);
-  console.log("res in category page ", res);
+  // Handle case where res is undefined or null
+  if (!res || !Array.isArray(res)) {
+    res = [];
+  }
 
   // Convert MongoDB documents to plain objects
   const products = res.map((item) => ({
@@ -24,6 +35,7 @@ export default async function Category({ params, searchParams }) {
     image: item.image[0],
     createdAt: item.createdAt,
   }));
+  
   console.log("products", products);
   const uniqueSub = [...new Set(products.map((item) => item?.subCategory))];
   const search = await searchParams;
