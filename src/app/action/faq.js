@@ -75,7 +75,7 @@ export const ResponseQuery = async (PrevState, formData) => {
 
     console.log("session in res", user);
     console.log(query, queryId);
-    if (user.role != "user") {
+    if (user.role != "admin") {
       return {
         success: false,
         message: "only Admin can Response",

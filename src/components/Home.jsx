@@ -10,6 +10,11 @@ import Testimonial from "./Testimonial";
 import Faq from "./Faq";
 import Footer from "./Footer";
 import AllQueries from "./AllQueries";
+import { Button } from "./ui/button";
+import { Target } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
+
+
 // import Testimonials from "./Testimonials";
 
 const projects = [
@@ -54,7 +59,7 @@ const AllProducts = () => {
   const enquiryRef = useRef(null);
   const [showAll, setShowAll] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-
+  const msg = encodeURIComponent("Hello, I want interior design service");
   // Detect screen size on load and on resize
   useEffect(() => {
     const handleResize = () => {
@@ -67,7 +72,9 @@ const AllProducts = () => {
 
   const visibleProjects =
     !isMobile || showAll ? projects : projects.slice(0, 6);
+    
 
+  
   return (
     <>
       <div className="bg-[#eae5df] brico-tracking-wider ">
@@ -76,10 +83,10 @@ const AllProducts = () => {
 
           <div className="relative w-full h-[70vh] overflow-hidden ">
             <Navbar
-            ServiceRef={ServiceRef}
-            collectionRef={collectionRef}
-            ProductRef={ProductRef}
-            enquiryRef={enquiryRef}
+              ServiceRef={ServiceRef}
+              collectionRef={collectionRef}
+              ProductRef={ProductRef}
+              enquiryRef={enquiryRef}
             />
             <img
               src="/high.avif"
@@ -165,12 +172,19 @@ const AllProducts = () => {
           <Interior />
           <Priority />
           <Services ServiceRef={ServiceRef} />
-          <Testimonial/>
-          <Faq enquiryRef={enquiryRef}/>
-          <Footer/>
+          <Testimonial />
+          <Faq enquiryRef={enquiryRef} />
+          <Footer />
+          <a
+            className="fixed right-[5%] bottom-[5%] z-20 "
+            href={`https://wa.me/9324898709?text=${msg}`}
+            target="_blank"
+          >
+            <FaWhatsapp className="text-green-500 lg:text-[6vw] text-5xl animate-pulse hover:scale-110 transition-transform duration-300 z-30 rounded-full lg:p-3 p-2 bg-white" />
+          </a>
 
           {/* Show More / Show Less only for mobile */}
-          {isMobile && (
+          {/* {isMobile && (
             <div className="flex justify-center mt-10">
               <button
                 onClick={() => setShowAll(!showAll)}
@@ -179,7 +193,7 @@ const AllProducts = () => {
                 {showAll ? "Show Less" : "Show More"}
               </button>
             </div>
-          )}
+          )} */}
         </div>
       </div>
     </>

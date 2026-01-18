@@ -11,7 +11,7 @@ function Collection({ProductRef}) {
     },
     {
       id: 2,
-      category: "Launge chair",
+      category: "Launge Chair",
       img: "/launge.png",
     },
     {

@@ -24,15 +24,17 @@ import PiChart from "./PiChart";
 import OrderRecently from "./OrderRecently";
 
 function DashBoardOverView({ Allorders, user }) {
-  console.log("allorders", Allorders);
+  // Handle empty or undefined Allorders
+  const orders = Allorders || [];
+  console.log("allorders", orders);
   const now = new Date();
   console.log(now);
-  const TodaySales = Allorders.filter(
+  const TodaySales = orders.filter(
     (item) => new Date(item.createdAt).toDateString() === now.toDateString()
   );
-  const date = Allorders.map((item) => new Date(item.createdAt).toDateString());
+  const date = orders.map((item) => new Date(item.createdAt).toDateString());
   console.log(date);
-  const YesterDaySales = Allorders.filter(
+  const YesterDaySales = orders.filter(
     (item) =>
       new Date(item.createdAt).toDateString() ===
       new Date(now.setDate(now.getDate() - 1)).toDateString()
@@ -40,7 +42,7 @@ function DashBoardOverView({ Allorders, user }) {
   const toIST = (date) =>
     new Date(date.toLocaleString("en-US", { timeZone: "Asia/Kolkata" }));
 
-  const MonthSales = Allorders.filter((item) => {
+  const MonthSales = orders.filter((item) => {
     const orderDate = toIST(new Date(item.createdAt));
     const nowIST = toIST(new Date());
     return (
@@ -49,7 +51,7 @@ function DashBoardOverView({ Allorders, user }) {
     );
   });
   console.log("monthSales", MonthSales);
-  const LastMonthSales = Allorders.filter((item) => {
+  const LastMonthSales = orders.filter((item) => {
     const orderDate = toIST(new Date(item.createdAt));
     const nowDate = toIST(new Date());
     let month = nowDate.getMonth() - 1;
@@ -61,29 +63,29 @@ function DashBoardOverView({ Allorders, user }) {
     return orderDate.getMonth() === month && orderDate.getFullYear() === year;
   });
   console.log("lastMonthSales", LastMonthSales);
-  const AllTimesSales = Allorders.filter((item) => {
+  const AllTimesSales = orders.filter((item) => {
     return true;
   });
   console.log("AllTimesSales", AllTimesSales);
   const AllTimePrice = AllTimesSales.reduce((total, order) => {
-    return total + order.items.reduce((sum, item) => sum + item.price, 0);
+    return total + (order.items?.reduce((sum, item) => sum + item.price, 0) || 0);
   }, 0);
   console.log("AllTimePrice", AllTimePrice);
 
   const lastMonthPrice = LastMonthSales.reduce((total, order) => {
-    return total + order.items.reduce((sum, item) => sum + item.price, 0);
+    return total + (order.items?.reduce((sum, item) => sum + item.price, 0) || 0);
   }, 0);
   console.log(lastMonthPrice);
 
   const TheseMonthSalesPrice = MonthSales.reduce((total, order) => {
-    return total + order.items.reduce((sum, item) => sum + item.price, 0);
+    return total + (order.items?.reduce((sum, item) => sum + item.price, 0) || 0);
   }, 0);
   const TodaySalesPrice = TodaySales.reduce((total, order) => {
-    return total + order.items.reduce((sum, item) => sum + item.price, 0);
+    return total + (order.items?.reduce((sum, item) => sum + item.price, 0) || 0);
   }, 0);
 
   const YesterDaySalesPrice = YesterDaySales.reduce((total, order) => {
-    return total + order.items.reduce((sum, item) => sum + item.price, 0);
+    return total + (order.items?.reduce((sum, item) => sum + item.price, 0) || 0);
   }, 0);
 
   // Calculate weekly sales data for the line chart
@@ -97,12 +99,12 @@ function DashBoardOverView({ Allorders, user }) {
       date.setDate(date.getDate() - i);
       const dateString = date.toDateString();
 
-      const dayOrders = Allorders.filter(
+      const dayOrders = orders.filter(
         (order) => new Date(order.createdAt).toDateString() === dateString
       );
 
       const dailySales = dayOrders.reduce((total, order) => {
-        return total + order.items.reduce((sum, item) => sum + item.price, 0);
+        return total + (order.items?.reduce((sum, item) => sum + item.price, 0) || 0);
       }, 0);
 
       weeklyData.push({
@@ -121,8 +123,8 @@ function DashBoardOverView({ Allorders, user }) {
 
   const weeklyData = getWeeklySalesData();
 
-  const ProductSales = Allorders.reduce((total, order) => {
-    order.items.forEach((item) => {
+  const ProductSales = orders.reduce((total, order) => {
+    order.items?.forEach((item) => {
       if (!total[item.productId]) {
         total[item.productId] = {
           title: item.title,
@@ -139,11 +141,11 @@ function DashBoardOverView({ Allorders, user }) {
   }, {});
   console.log("productSales", ProductSales);
 
-  const RecentOrder = Object.values(Allorders).sort((a,b)=>{
+  const RecentOrder = orders.sort((a,b)=>{
     return new Date(b.createdAt) - new Date(a.createdAt);
   })
-  console.log("allOrder",Allorders);
-  console.log("recentOrder",RecentOrder);
+  console.log("allOrder", orders);
+  console.log("recentOrder", RecentOrder);
 
 
   return (
@@ -241,7 +243,7 @@ function DashBoardOverView({ Allorders, user }) {
           </div>
           <div>
             <h4 className="text-sm font-medium text-muted-foreground mb-1">Total Orders</h4>
-            <h2 className="text-3xl font-bold text-card-foreground">{Allorders.length}</h2>
+            <h2 className="text-3xl font-bold text-card-foreground">{orders.length}</h2>
             <div className="flex items-center mt-2">
               <div className="w-full bg-muted rounded-full h-2">
                 <div className="bg-blue-500 h-2 rounded-full" style={{width: '100%'}}></div>
@@ -260,14 +262,14 @@ function DashBoardOverView({ Allorders, user }) {
           <div>
             <h4 className="text-sm font-medium text-muted-foreground mb-1">Order Pending</h4>
             <h2 className="text-3xl font-bold text-card-foreground">
-              {Allorders.filter((order) => order.orderStatus === "pending").length}
+              {orders.filter((order) => order.orderStatus === "pending").length}
             </h2>
             <div className="flex items-center mt-2">
               <div className="w-full bg-muted rounded-full h-2">
                 <div 
                   className="bg-amber-500 h-2 rounded-full" 
                   style={{
-                    width: `${(Allorders.filter(order => order.orderStatus === "pending").length / Allorders.length) * 100}%`
+                    width: `${orders.length > 0 ? (orders.filter(order => order.orderStatus === "pending").length / orders.length) * 100 : 0}%`
                   }}
                 ></div>
               </div>
@@ -285,14 +287,14 @@ function DashBoardOverView({ Allorders, user }) {
           <div>
             <h4 className="text-sm font-medium text-muted-foreground mb-1">Processing</h4>
             <h2 className="text-3xl font-bold text-card-foreground">
-              {Allorders.filter((order) => order.orderStatus === "processing").length}
+              {orders.filter((order) => order.orderStatus === "processing").length}
             </h2>
             <div className="flex items-center mt-2">
               <div className="w-full bg-muted rounded-full h-2">
                 <div 
                   className="bg-purple-500 h-2 rounded-full" 
                   style={{
-                    width: `${(Allorders.filter(order => order.orderStatus === "processing").length / Allorders.length) * 100}%`
+                    width: `${orders.length > 0 ? (orders.filter(order => order.orderStatus === "processing").length / orders.length) * 100 : 0}%`
                   }}
                 ></div>
               </div>
@@ -310,14 +312,14 @@ function DashBoardOverView({ Allorders, user }) {
           <div>
             <h4 className="text-sm font-medium text-muted-foreground mb-1">Delivered</h4>
             <h2 className="text-3xl font-bold text-card-foreground">
-              {Allorders.filter((order) => order.orderStatus === "delivered").length}
+              {orders.filter((order) => order.orderStatus === "delivered").length}
             </h2>
             <div className="flex items-center mt-2">
               <div className="w-full bg-muted rounded-full h-2">
                 <div 
                   className="bg-emerald-500 h-2 rounded-full" 
                   style={{
-                    width: `${(Allorders.filter(order => order.orderStatus === "delivered").length / Allorders.length) * 100}%`
+                    width: `${orders.length > 0 ? (orders.filter(order => order.orderStatus === "delivered").length / orders.length) * 100 : 0}%`
                   }}
                 ></div>
               </div>

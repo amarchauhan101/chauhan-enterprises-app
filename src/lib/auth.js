@@ -8,10 +8,30 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     Google({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      authorization: {
+        params: {
+          prompt: "consent select_account",
+          access_type: "offline",
+          response_type: "code",
+        },
+      },
     }),
   ],
+  pages: {
+    signIn: "/auth/signin",
+    error: "/auth/error",
+  },
+  session: {
+    strategy: "jwt",
+    maxAge: 30 * 24 * 60 * 60, // 30 days
+  },
+  secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
-    async signIn({ user }) {
+    async signIn({ user, account, profile }) {
+      console.log("SignIn callback called:", {
+        user: user?.email,
+        account: account?.provider,
+      });
       try {
         await dbConnect();
         const existUser = await userSchema.findOne({ email: user.email });
@@ -20,7 +40,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           let username = user.name;
           let usernameExists = await userSchema.findOne({ username: username });
           let counter = 1;
-          
+
           // If username exists, append number to make it unique
           while (usernameExists) {
             username = `${user.name}${counter}`;
@@ -34,6 +54,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             role: "user",
             profileImage: user.image,
           });
+          console.log("New user created:", newUser.email);
+        } else {
+          console.log("Existing user found:", existUser.email);
         }
         return true;
       } catch (error) {
@@ -60,6 +83,25 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       } catch (error) {
         console.error("Session error:", error);
         return session;
+      }
+    },
+    async jwt({ token }) {
+      try {
+        if (!token.role && token.email) {
+          await dbConnect();
+
+          const dbUser = await userSchema.findOne({ email: token.email });
+
+          if (dbUser) {
+            token.id = dbUser._id.toString();
+            token.role = dbUser.role;
+            token.username = dbUser.username;
+          }
+        }
+
+        return token;
+      } catch (err) {
+        console.log(err);
       }
     },
   },

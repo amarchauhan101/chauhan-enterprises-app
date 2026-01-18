@@ -1,13 +1,14 @@
   "use client";
   import { addToCart, getCart } from "@/app/action/addToCart";
+import { useCart } from "@/app/context/CartContext";
   import { ShoppingCart } from "lucide-react";
   import { useSession } from "next-auth/react";
   import React from "react";
   import toast from "react-hot-toast";
 
-  function AddToCartButton({ product, cart, Cartquantity, refreshcart }) {
+  function AddToCartButton({ product, cart, Cartquantity }) {
     console.log("cart quantity in Add to cart button ", Cartquantity);
-
+    const {setCart } = useCart();
     const { data: session, status } = useSession();
     if (status === "loading") return <p>Loading...</p>;
     if (!session) {
@@ -31,7 +32,7 @@
       if (res.success) {
         // handle success case
         toast.success("Item added to cart successfully!");
-        await refreshcart();
+        setCart(res.cart);
       }
     };
 

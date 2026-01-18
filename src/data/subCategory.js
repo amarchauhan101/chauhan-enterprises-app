@@ -2,31 +2,31 @@
 
  // predefined subcategories
 export const subCategories = {
-    Sofa: ["1 Seater", "2 Seater", "3 Seater", "L Shape", "Sofa Set"],
+    Sofa: ["1 Seater", "2 Seater", "3 Seater", "L Shape", "Sofa Set"], //done
 
-  "Launge chair": ["Recliner", "Armchair", "Rocking Chair"],
+  "Launge Chair": ["Solid Wood", "Fabric"], //done
 
-  Bed: ["Single Bed", "Double Bed", "Queen Size Bed", "King Size Bed"],
+  Bed: ["Single Bed", "Double Bed", "Queen Size Bed", "King Size Bed"], //done
 
-  "Coffee Table": ["Glass Top", "Wooden", "Marble Top"],
+  "Coffee Table": ["Glass Top", "Wooden", "Marble Top"],//done
 
-  Cupboard: ["2 Door", "3 Door", "4 Door"],
+  Cupboard: ["2 Door", "3 Door", "4 Door"], //done
 
-  "Book Shelf": ["Small", "Medium", "Large", "Wall Mounted"],
+  "Book Shelf": ["Small", "Medium", "Large", "Wall Mounted"],//done
 
   "Bar Stool": ["Adjustable", "High Back", "Low Back"],
 
   "Dining Table": ["4 Seater", "6 Seater", "8 Seater"],
 
-  Mattress: ["Single", "Double", "Queen", "King"],
+  Mattress: ["Single", "Double", "Queen", "King"],//done
 
-  "Recliner Chair": ["Single Recliner", "Double Recliner"],
+  "Recliner Chair": ["Single Recliner", "Double Recliner"], //done
 
-  "Shoe Racks": ["Open", "Closed", "3 Shelves", "5 Shelves"],
+  "Shoe Racks": ["Open", "Closed", "3 Shelves", "6 Shelves"],//done
 
-  "SofaCum Bed": ["Single", "Double"],
+  "SofaCum Bed": ["Single", "Double"], //done
 
-  "Study Table": ["Kids Table", "Office Table", "Wall Mounted"],
+  "Study Table": ["Solid Wood", "Office Table"],//done
 
-  "Tv Unit": ["Wall Mounted", "Floor Standing"],
+  "Tv Unit": ["Solid Wood", "Floor Standing"],//done
 }

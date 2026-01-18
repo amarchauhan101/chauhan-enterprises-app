@@ -81,13 +81,13 @@ function ProductShowTable({
     let data = [...products.products];
     if (filter.search) {
       data = data.filter(
-        (item) => item.title.toLowerCase() == filter.search.toLowerCase()
+        (item) => item.title.toLowerCase().includes(filter.search.toLowerCase())
       );
     }
 
     if (filter.category && filter.category !== "All") {
       data = data.filter(
-        (item) => item.category.toLowerCase() === filter.category.toLowerCase()
+        (item) => item.category.toLowerCase().includes(filter.category.toLowerCase())
       );
     }
     if (filter.priceFilter != "All" && filter.priceFilter == "low to high") {

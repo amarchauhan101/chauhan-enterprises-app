@@ -19,8 +19,8 @@ function CraftingText() {
       <div className='relative z-10 max-w-6xl mx-auto text-center'>
         <div className='space-y-4 sm:space-y-6'>
           {/* First Line */}
-          <div className='flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white'>
-            <span className='text-center'>We are crafting amazing</span>
+          <div className='flex  sm:flex-row items-center justify-center gap-2 sm:gap-4 text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold font-[cursive] text-amber-500'>
+            <span className='text-center '>We are crafting amazing</span>
             <div className='relative group flex-shrink-0'>
               <div className='overflow-hidden rounded-full shadow-lg transform group-hover:scale-110 transition-transform duration-300'>
                 <Image 
@@ -36,7 +36,7 @@ function CraftingText() {
           </div>
 
           {/* Second Line */}
-          <div className='flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-800'>
+          <div className='flex  sm:flex-row items-center justify-center gap-2 sm:gap-4 text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold font-[cursive] text-gray-800'>
             <div className='relative group flex-shrink-0 order-2 sm:order-1'>
               <div className='overflow-hidden rounded-full shadow-lg transform group-hover:scale-110 transition-transform duration-300'>
                 <Image 
@@ -52,7 +52,7 @@ function CraftingText() {
           </div>
 
           {/* Third Line */}
-          <div className='flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white'>
+          <div className='flex  sm:flex-row items-center justify-center gap-2 sm:gap-4 text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold font-[cursive] text-slate-500'>
             <span className='text-center'>home & office</span>
             <div className='relative group flex-shrink-0'>
               <div className='overflow-hidden rounded-full shadow-lg transform group-hover:scale-110 transition-transform duration-300'>

@@ -9,10 +9,10 @@ import React from "react";
 export default async function Category({ params, searchParams }) {
   const { slug } = await params;
   const decode = decodeURIComponent(slug);
-  console.log(decode);
+  // console.log("decode",decode.toCapitalize());
 
   const res = await Categoryfetch(decode);
-  console.log("res", res);
+  console.log("res in category page ", res);
 
   // Convert MongoDB documents to plain objects
   const products = res.map((item) => ({
@@ -28,37 +28,31 @@ export default async function Category({ params, searchParams }) {
   const uniqueSub = [...new Set(products.map((item) => item?.subCategory))];
   const search = await searchParams;
   const selectedSub = search?.sub || "all";
-  console.log("selectedSub",selectedSub);
+  console.log("selectedSub", selectedSub);
   const filteredProducts =
     selectedSub === "all"
       ? products
       : products.filter((p) => p.subCategory === selectedSub);
 
-
-  
   return (
     <div className="bg-white py-16 px-4 md:px-12">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-semibold tracking-tighter text-gray-900 mb-4">
-            Find your home with{" "}
-            <span className="text-orange-500">unique preferences</span> by our
-            top brokers
+            Discover pieces that feel like home &{" "}
+            <span className="text-orange-500">Make every space </span> feel
+            personal
           </h2>
           <p className="text-gray-600 text-lg max-w-4xl mx-auto leading-relaxed">
-            Explore a curated selection of homes designed to match your unique
-            preferences, making it effortless to find the ideal property that
-            perfectly fits your lifestyle and needs.
+            Your home is more than just a place — it’s a reflection of you. Our
+            curated collections are designed to help you create spaces filled
+            with comfort, warmth, and personality, no matter the room or style.
           </p>
-        </div>
-        <div className="p-10">
-          <FilterForm unique={uniqueSub} />
         </div>
 
         {/* Properties Grid */}
-        <ProductsGrid filteredProducts={filteredProducts}/>
-
+        <ProductsGrid filteredProducts={filteredProducts} unique={uniqueSub} />
         {/* View All Button */}
       </div>
     </div>

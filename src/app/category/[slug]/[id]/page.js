@@ -16,6 +16,8 @@ import {
 import { auth } from "../../../../lib/auth";
 import QuantityAndAction from "@/components/QuantityAndAction";
 import { getorder } from "@/app/action/getOrder";
+import CartBadge from "@/components/CartBadge";
+import ShareButton from "@/components/ShareButton";
 
 export default async function Details({ params }) {
   const { id } = await params;
@@ -27,7 +29,6 @@ export default async function Details({ params }) {
   const data = await fetchSingleDetail(id, userId);
   console.log(data);
   const cartItem = await getorder(userId);
-  
 
   // Convert MongoDB document to plain object
   const product = {
@@ -35,15 +36,17 @@ export default async function Details({ params }) {
     title: data.title,
     category: data.category,
     price: data.price,
-    image: data.image,
+    image: data.image[0],
     stock: data?.stock,
     createdAt: data.createdAt,
   };
-  console.log(product);
+  console.log("product", product);
   return (
-    <div className="min-h-screen bg-neutral-50">
+    <div className="h-fit ">
       {/* Navigation */}
-      <div className="bg-white border-b border-gray-100">
+      
+      <div className="max-w-7xl mx-auto px-6 py-4">
+        <div className=" border-b">
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between ">
           <Link
             href={`/category/${product.category}`}
@@ -52,42 +55,21 @@ export default async function Details({ params }) {
             <ArrowLeft className="w-4 h-4" />
             Back to {product.category}
           </Link>
-          <Link className="flex gap-2 relative" href="/cart" >
-            <span>
-              <ShoppingCart className="relative" />
-              <span className="absolute -top-2 -right-2 bg-red-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
-                {cartItem.items.length}
-              </span>
-            </span>
-          </Link>
+          <CartBadge />
         </div>
       </div>
-
-      <div className="max-w-7xl mx-auto px-6 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Product Image */}
           <div className="space-y-4">
             <div className="aspect-square bg-white rounded-2xl overflow-hidden shadow-sm">
               <Image
-                src={product.image}
+                src={product?.image}
                 alt={product.title}
                 width={600}
                 height={600}
                 className="w-full h-full object-cover"
                 priority
               />
-            </div>
-
-            {/* Image Gallery Placeholder */}
-            <div className="grid grid-cols-4 gap-4">
-              {[1, 2, 3, 4].map((i) => (
-                <div
-                  key={i}
-                  className="aspect-square bg-gray-100 rounded-lg flex items-center justify-center"
-                >
-                  <span className="text-gray-400 text-sm">View {i}</span>
-                </div>
-              ))}
             </div>
           </div>
 
@@ -136,7 +118,7 @@ export default async function Details({ params }) {
             </div>
 
             {/* Product Description */}
-            <div className="space-y-4">
+            <div className="space-y-2">
               <h3 className="text-lg font-medium text-gray-900">Description</h3>
               <p className="text-gray-600 leading-relaxed">
                 Experience ultimate comfort with our premium{" "}
@@ -190,10 +172,11 @@ export default async function Details({ params }) {
                   <Heart className="w-5 h-5" />
                   Save to Wishlist
                 </button>
-                <button className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors">
+                {/* <button className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors">
                   <Share2 className="w-5 h-5" />
                   Share
-                </button>
+                </button> */}
+                <ShareButton/>
               </div>
             </div>
 

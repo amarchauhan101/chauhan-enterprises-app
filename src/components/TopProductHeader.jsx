@@ -22,6 +22,7 @@ import { useRouter } from "next/navigation";
 function TopProductHeader({ products, bulkAction, selectId,click,setclick }) {
   console.log("products in topheader", products);
   const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const[loading,setLoading] = useState(false);
  
   const router = useRouter();
   
@@ -106,17 +107,32 @@ function TopProductHeader({ products, bulkAction, selectId,click,setclick }) {
     });
     console.log(formatDocument);
 
-    const res = await fetch("/api/products/import", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ product: formatDocument }),
-    });
-    const data = await res.json();
-    if (data.success) {
-      router.refresh();
+    try {
+      setLoading(true);
+      const res = await fetch("/api/products/import", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ product: formatDocument }),
+      });
+      
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+      
+      const data = await res.json();
+      if (data.success) {
+        alert(`Successfully imported ${data.inserted || formatDocument.length} products!`);
+        router.refresh();
+      } else {
+        alert(`Import failed: ${data.error}`);
+      }
+    } catch (error) {
+      console.error("Upload error:", error);
+      alert(`Upload failed: ${error.message}`);
     }
+    setLoading(false);
   };
   return (
     <div className="bg-card border-b border-border shadow-sm">
@@ -143,7 +159,7 @@ function TopProductHeader({ products, bulkAction, selectId,click,setclick }) {
                 onChange={handleUpload}
                 className="hidden"
               />
-              <span className="font-medium">Import</span>
+              <span className="font-medium">{loading ? "Importing..." : "Import"}</span>
             </label>
             
             <Button
