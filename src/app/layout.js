@@ -31,7 +31,8 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }) {
-  const { user } = await auth();
+  const authResult = await auth();
+  const user = authResult?.user;
   console.log("data in layout", user?.id);
   const cart = await getCart(user?.id);
   console.log("cart in layout", cart);

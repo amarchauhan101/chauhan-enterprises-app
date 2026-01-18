@@ -19,7 +19,7 @@ async function page() {
     );
   }
   
-  const userId = user.user.id;
+  const userId = user?.user?.id;
   const products = await fetchAllProducts(userId);
   const {order} = await getAllOrders();
   console.log("Orders:", order);

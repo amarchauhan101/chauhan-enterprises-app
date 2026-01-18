@@ -5,7 +5,7 @@ import React from "react";
 
 async function Products() {
   const user = await auth();
-  const userId = user.user.id;
+  const userId = user?.user?.id;
 
   const products = await fetchAllProducts(userId);
   // console.log(products);

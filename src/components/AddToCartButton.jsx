@@ -23,7 +23,7 @@ import { useCart } from "@/app/context/CartContext";
         </button>
       );
     }
-    const userId = session.user.id;
+    const userId = session?.user?.id;
     console.log(userId);
 
     const handleAdd = async () => {

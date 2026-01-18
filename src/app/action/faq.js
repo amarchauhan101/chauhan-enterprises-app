@@ -18,7 +18,7 @@ export const askQuery = async (prevState, formData) => {
     await dbConnect();
     const session = await auth();
     console.log(session);
-    const userid = session.user?.id;
+    const userid = session?.user?.id;
 
     if (!userid) {
       return {
@@ -69,13 +69,14 @@ export const getQuery = async () => {
 export const ResponseQuery = async (PrevState, formData) => {
   try {
     await dbConnect();
-    const { user } = await auth();
+    const authResult = await auth();
+    const user = authResult?.user;
     const query = formData.get("query");
     const queryId = formData.get("queryId");
 
     console.log("session in res", user);
     console.log(query, queryId);
-    if (user.role != "admin") {
+    if (!user || user.role != "admin") {
       return {
         success: false,
         message: "only Admin can Response",

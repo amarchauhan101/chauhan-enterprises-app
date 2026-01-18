@@ -22,8 +22,8 @@ import ShareButton from "@/components/ShareButton";
 export default async function Details({ params }) {
   const { id } = await params;
   const user = await auth();
-  console.log(user.user.id);
-  const userId = user.user.id;
+  console.log(user?.user?.id);
+  const userId = user?.user?.id;
   console.log("user using auth", user);
   console.log(id);
   const data = await fetchSingleDetail(id, userId);

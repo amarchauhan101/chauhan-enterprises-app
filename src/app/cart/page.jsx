@@ -8,9 +8,9 @@ import CheckOutButton from "@/components/CheckOutButton";
 
 async function Cart() {
   const user = await auth();
-  console.log("user in auth", user.user.id);
-  const cart = await getorder(user.user.id);
-  const userId = user.user.id;
+  console.log("user in auth", user?.user?.id);
+  const cart = await getorder(user?.user?.id);
+  const userId = user?.user?.id;
   console.log("cart in cart", cart);
   
   return (
