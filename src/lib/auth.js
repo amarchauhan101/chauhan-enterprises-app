@@ -17,6 +17,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       },
     }),
   ],
+  trustHost: true, // Important for production deployment
   pages: {
     signIn: "/auth/signin",
     error: "/auth/error",
