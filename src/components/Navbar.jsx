@@ -86,6 +86,7 @@ function Navbar({ ServiceRef, collectionRef, ProductRef, enquiryRef }) {
           <Link
             // href={`${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/admin/dashboard`}
             href='https://chauhan-enterprises-app.vercel.app/admin/dashboard'
+
           >
             <Button className="bg-blue-700 hidden lg:block cursor-pointer hover:bg-blue-800 transition-all ease-in-out rounded-full active:scale-90  duration-200 px-3 py-2 text-sm md:px-4 md:py-2 md:text-base">
               Dashboard
@@ -149,7 +150,8 @@ function Navbar({ ServiceRef, collectionRef, ProductRef, enquiryRef }) {
             collections
           </button>
           <Link
-            href={`${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/admin/dashboard`}
+            // href={`${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/admin/dashboard`}
+            href='https://chauhan-enterprises-app.vercel.app/admin/dashboard'
           >
             <button className="text-left py-3 capitalize font-semibold hover:bg-gray-100 hover:text-yellow-700 transition-all duration-200 rounded-md px-2">
               Dashboard
