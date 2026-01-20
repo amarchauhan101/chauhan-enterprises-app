@@ -84,7 +84,8 @@ function Navbar({ ServiceRef, collectionRef, ProductRef, enquiryRef }) {
         </Button>
         {isAdmin ? (
           <Link
-            href={`${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/admin/dashboard`}
+            // href={`${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/admin/dashboard`}
+            href='https://chauhan-enterprises-app.vercel.app/admin/dashboard'
           >
             <Button className="bg-blue-700 hidden lg:block cursor-pointer hover:bg-blue-800 transition-all ease-in-out rounded-full active:scale-90  duration-200 px-3 py-2 text-sm md:px-4 md:py-2 md:text-base">
               Dashboard
